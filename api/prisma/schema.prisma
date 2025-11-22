@@ -1,0 +1,19 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model tb_barang {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  nama      String
+  kategori  String
+  kondisi   String
+  harga     Int
+  foto      String?
+  createdAt DateTime @default(now())
+}
