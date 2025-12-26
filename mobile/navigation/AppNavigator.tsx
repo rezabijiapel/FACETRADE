@@ -1,6 +1,5 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "../app/home/page";       // ✅ gunakan index.tsx
+import { createNativeStackNavigator } from "@react-navigation/native-stack";      // ✅ gunakan index.tsx
 import ProfileScreen from "../app/profile/index"; // ✅ gunakan index.tsx
 import AddScreen from "../app/add/index";         // ✅ gunakan index.tsx
 
@@ -9,11 +8,6 @@ const Stack = createNativeStackNavigator();
 export default function AppNavigator() {
   return (
     <Stack.Navigator initialRouteName="home">
-      <Stack.Screen 
-        name="home" 
-        component={HomeScreen} 
-        options={{ title: "FaceTrade" }}
-      />
       <Stack.Screen 
         name="profile" 
         component={ProfileScreen} 
