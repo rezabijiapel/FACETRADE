@@ -3,7 +3,6 @@ import {
   SafeAreaView,
   FlatList,
   View,
-  Text,
   StyleSheet,
   Image,
   ActivityIndicator,
@@ -27,7 +26,7 @@ interface Barang {
   createdAt: string;
 }
 
-export default function HomeScreen({ navigation }: any) {
+export default function HomeScreen() {
   const [barang, setBarang] = useState<Barang[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,68 +37,74 @@ export default function HomeScreen({ navigation }: any) {
       .finally(() => setLoading(false));
   }, []);
 
-  return (
-     <SafeAreaView style={styles.container}>
-    <FlatList
-      data={barang}
-      keyExtractor={(item) => item.id.toString()}
-      showsVerticalScrollIndicator={false}
-      ListHeaderComponent={
-        <ThemedText style={styles.headerTitle}>FaceTrade</ThemedText>
-      }
-      renderItem={({ item }) => (
-        <View style={styles.card}>
-          {item.foto ? (
-            <Image
-              source={{ uri: item.foto }}
-              style={styles.foto}
-              resizeMode="cover"
-            />
-          ) : (
-            <View style={styles.noImage}>
-              <ThemedText style={{ color: "#9CA3AF" }}>
-                Tidak ada foto
-              </ThemedText>
-            </View>
-          )}
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#00A8E8" />
+      </SafeAreaView>
+    );
+  }
 
-          <View style={styles.cardBody}>
-            <ThemedText type="title">{item.nama || "-"}</ThemedText>
-            <ThemedText style={styles.meta}>
-              {item.kategori} • {item.kondisi}
-            </ThemedText>
-            <ThemedText style={styles.harga}>
-              Rp {item.harga.toLocaleString("id-ID")}
-            </ThemedText>
-          </View>
+  const renderItem = ({ item }: { item: Barang }) => (
+    <View style={styles.card}>
+      {item.foto ? (
+        <Image source={{ uri: item.foto }} style={styles.foto} resizeMode="cover" />
+      ) : (
+        <View style={styles.noImage}>
+          <ThemedText style={styles.noImageText}>Tidak ada foto</ThemedText>
         </View>
       )}
-      contentContainerStyle={{ paddingBottom: 100 }}
-    />
 
-    {/* FLOATING BUTTON */}
-    <Link href="./add" asChild>
-      <TouchableOpacity style={styles.fab}>
-        <Ionicons name="add" size={32} color="#fff" />
-      </TouchableOpacity>
-    </Link>
-  </SafeAreaView>
-   
+      <View style={styles.cardBody}>
+        <ThemedText type="title" style={styles.nama}>{item.nama || "-"}</ThemedText>
+        <ThemedText style={styles.meta}>
+          {item.kategori} • {item.kondisi}
+        </ThemedText>
+        <ThemedText style={styles.harga}>
+          Rp {item.harga.toLocaleString("id-ID")}
+        </ThemedText>
+      </View>
+    </View>
+  );
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={barang}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
+        contentContainerStyle={{ padding: 16, paddingBottom: 100 }}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={
+          <ThemedText style={styles.headerTitle}>FaceTrade</ThemedText>
+        }
+      />
+
+      {/* Floating Add Button */}
+      <Link href="./add" asChild>
+        <TouchableOpacity style={styles.fab}>
+          <Ionicons name="add" size={32} color="#fff" />
+        </TouchableOpacity>
+      </Link>
+    </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F3F4F6",
-    paddingHorizontal: 12,
   },
-
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   headerTitle: {
     fontSize: 28,
     fontWeight: "800",
-    marginVertical: 16,
+    marginBottom: 16,
   },
-
   card: {
     backgroundColor: "#fff",
     borderRadius: 16,
@@ -111,40 +116,41 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 3 },
   },
-
   foto: {
     width: "100%",
     height: 180,
   },
-
   noImage: {
     height: 180,
     backgroundColor: "#E5E7EB",
     justifyContent: "center",
     alignItems: "center",
   },
-
+  noImageText: {
+    color: "#9CA3AF",
+    fontSize: 16,
+  },
   cardBody: {
     padding: 12,
   },
-
+  nama: {
+    fontSize: 18,
+    fontWeight: "700",
+    marginBottom: 4,
+  },
   meta: {
     color: "#6B7280",
-    marginVertical: 4,
   },
-
   harga: {
     fontSize: 18,
     fontWeight: "700",
     color: "#00A8E8",
     marginTop: 6,
   },
-
-  /* FLOATING BUTTON */
   fab: {
     position: "absolute",
-    right: 20,
     bottom: 24,
+    right: 20,
     width: 60,
     height: 60,
     borderRadius: 30,

@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";      // ✅ gunakan index.tsx
-import ProfileScreen from "../app/profile/index"; // ✅ gunakan index.tsx
-import AddScreen from "../app/add/index";         // ✅ gunakan index.tsx
+import ProfileScreen from "../app/(tabs)/profile"; // ✅ gunakan index.tsx
+import AddScreen from "../app/(tabs)/add";         // ✅ gunakan index.tsx
 
 const Stack = createNativeStackNavigator();
 
