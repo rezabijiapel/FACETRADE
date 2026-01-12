@@ -127,18 +127,26 @@ const container = {
 const header = {
   display: "flex",
   alignItems: "center",
-  marginBottom: 16,
+  justifyContent: "flex-start",
+  gap: 12,
+  padding: "16px 24px",
+  background: "#f3f4f6", // abu-abu terang
+  borderRadius: 12,
+  marginBottom: 24,
+  color: "#111",
 };
 
 const logoWrap = {
   display: "flex",
   alignItems: "center",
-  gap: 10,
+  gap: 12,
+  filter: "drop-shadow(0 0 4px rgba(0,0,0,0.4))", // bayangan logo
 };
 
 const brand = {
-  fontSize: 22,
+  fontSize: 24,
   fontWeight: 700,
+  color: "#1E3A8A", // teks FACETRADE jadi biru
 };
 
 const subtitle = {
