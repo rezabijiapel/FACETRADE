@@ -15,16 +15,26 @@ import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
 // Komponen Header dengan logo + teks
-const Header: React.FC<{ nama: string }> = ({ nama }) => {
+const Header: React.FC<{ nama: string; isLoggedIn: boolean }> = ({ nama, isLoggedIn }) => {
   return (
     <View style={headerStyles.container}>
-      <Image 
-        source={require("../../assets/images/logo.png")} 
-        style={headerStyles.logo}
-         />
-      <ThemedText type="title" style={headerStyles.text}>
-        {nama}
-      </ThemedText>
+      {/* Kiri: Logo + Nama */}
+      <View style={headerStyles.left}>
+        <Image
+          source={require("../../assets/images/logo.png")}
+          style={headerStyles.logo}
+        />
+        <ThemedText type="title" style={headerStyles.text}>
+          {nama}
+        </ThemedText>
+      </View>
+
+      {/* Kanan: Profil/Login */}
+      <Link href={isLoggedIn ? "/profile" : "/login"} asChild>
+        <TouchableOpacity style={headerStyles.profileIcon}>
+          <Ionicons name="person-circle-outline" size={36} color="#00A8E8" />
+        </TouchableOpacity>
+      </Link>
     </View>
   );
 };
@@ -95,7 +105,7 @@ export default function HomeScreen() {
         renderItem={renderItem}
         contentContainerStyle={{ padding: 16, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<Header nama="FaceTrade" />}
+        ListHeaderComponent={<Header nama="FaceTrade" isLoggedIn={false} />}
       />
 
       {/* Floating Add Button */}
@@ -161,11 +171,16 @@ const headerStyles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between", // logo di kiri, ikon di kanan
     marginBottom: 16,
   },
+  left: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   logo: {
-    width: 100,
-    height: 100,
+    width: 40,
+    height: 40,
     marginRight: 10,
     resizeMode: "contain",
   },
@@ -173,5 +188,8 @@ const headerStyles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "800",
     color: "#00A8E8",
+  },
+  profileIcon: {
+    padding: 4,
   },
 });
