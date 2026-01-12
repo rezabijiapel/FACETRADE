@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { SafeAreaView, TextInput, TouchableOpacity, Text, StyleSheet, Alert } from "react-native";
+import {
+  SafeAreaView,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Alert,
+  Image,
+  View,
+} from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -25,7 +34,16 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Logo di atas */}
+      <View style={styles.logoContainer}>
+        <Image
+          source={require("../../assets/images/logo.png")} // pastikan path logo benar
+          style={styles.logo}
+        />
+      </View>
+
       <Text style={styles.title}>FaceTrade Login</Text>
+
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -41,6 +59,7 @@ export default function LoginScreen() {
         onChangeText={setPassword}
         secureTextEntry
       />
+
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
@@ -53,13 +72,23 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: "center",
-    backgroundColor: "#f2f2f2",
+    alignItems: "center",
+    backgroundColor: "#E0F7FA", // biru muda seperti langit
+  },
+  logoContainer: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    resizeMode: "contain",
   },
   title: {
     fontSize: 28,
     fontWeight: "bold",
     color: "#0077B6",
-    marginBottom: 40,
+    marginBottom: 30,
     textAlign: "center",
   },
   input: {
@@ -69,12 +98,19 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderWidth: 1,
     borderColor: "#ccc",
+    width: "100%",
   },
   button: {
-    backgroundColor: "#0077B6",
+    backgroundColor: "#00A8E8", // biru cerah
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
+    width: "100%",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
   },
   buttonText: {
     color: "#fff",
