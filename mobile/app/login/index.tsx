@@ -8,6 +8,9 @@ import {
   Alert,
   Image,
   View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -34,35 +37,45 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Logo di atas */}
-      <View style={styles.logoContainer}>
-        <Image
-          source={require("../../assets/images/logo.png")} // pastikan path logo benar
-          style={styles.logo}
-        />
-      </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={{ flex: 1 }}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled"
+        >
+          {/* Logo di atas */}
+          <View style={styles.logoContainer}>
+            <Image
+              source={require("../../assets/images/logo.png")} // pastikan path logo benar
+              style={styles.logo}
+            />
+          </View>
 
-      <Text style={styles.title}>FaceTrade Login</Text>
+          <Text style={styles.title}>FaceTrade Login</Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -70,10 +83,12 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    backgroundColor: "#E0F7FA", 
+  },
+  scrollContent: {
+    flexGrow: 1,
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#E0F7FA", // biru muda seperti langit
+    padding: 20,
   },
   logoContainer: {
     alignItems: "center",
@@ -98,14 +113,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderWidth: 1,
     borderColor: "#ccc",
-    width: "100%",
   },
   button: {
-    backgroundColor: "#00A8E8", // biru cerah
+    backgroundColor: "#00A8E8",
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
-    width: "100%",
     shadowColor: "#000",
     shadowOpacity: 0.2,
     shadowRadius: 4,

@@ -119,7 +119,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#acb5be" },
+  container: { flex: 1, backgroundColor: "#E0F7FA" },
   loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
   card: {
     backgroundColor: "#fff",
