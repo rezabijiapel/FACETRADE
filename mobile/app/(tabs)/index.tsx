@@ -74,7 +74,7 @@ export default function HomeScreen() {
         contentContainerStyle={{ padding: 16, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
-          <ThemedText style={styles.headerTitle}>FaceTrade</ThemedText>
+         <ThemedText style={[styles.headerTitle, { color: "#1F2937" }]}>FaceTrade</ThemedText>
         }
       />
 
