@@ -18,10 +18,10 @@ import { Link } from "expo-router";
 const Header: React.FC<{ nama: string }> = ({ nama }) => {
   return (
     <View style={headerStyles.container}>
-      <Image
-        source={require("./assets/logo.png")} // ganti path sesuai logo kamu
+      <Image 
+        source={require("../asset/logoFacdeTrade.png")} 
         style={headerStyles.logo}
-      />
+         />
       <ThemedText type="title" style={headerStyles.text}>
         {nama}
       </ThemedText>
