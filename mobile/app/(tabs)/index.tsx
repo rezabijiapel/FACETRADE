@@ -19,7 +19,7 @@ const Header: React.FC<{ nama: string }> = ({ nama }) => {
   return (
     <View style={headerStyles.container}>
       <Image 
-        source={require("../asset/logoFacdeTrade.png")} 
+        source={require("../../assets/images/logo.png")} 
         style={headerStyles.logo}
          />
       <ThemedText type="title" style={headerStyles.text}>
@@ -28,25 +28,6 @@ const Header: React.FC<{ nama: string }> = ({ nama }) => {
     </View>
   );
 };
-
-const headerStyles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  logo: {
-    width: 40,
-    height: 40,
-    marginRight: 10,
-    resizeMode: "contain",
-  },
-  text: {
-    fontSize: 28,
-    fontWeight: "800",
-    color: "#00A8E8",
-  },
-});
 
 interface Barang {
   id: number;
@@ -173,5 +154,24 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
+  },
+});
+
+const headerStyles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    marginRight: 10,
+    resizeMode: "contain",
+  },
+  text: {
+    fontSize: 28,
+    fontWeight: "800",
+    color: "#00A8E8",
   },
 });
