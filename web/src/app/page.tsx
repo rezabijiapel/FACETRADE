@@ -36,7 +36,19 @@ export default function HomePage() {
 
   return (
     <main style={container}>
-      <h1 style={title}>FACETRADE</h1>
+      {/* HEADER */}
+      <header style={header}>
+        <div style={logoWrap}>
+          <Image
+            src="/logo/logo.png"
+            alt="FACETRADE Logo"
+            width={40}
+            height={40}
+          />
+          <span style={brand}>FACETRADE</span>
+        </div>
+      </header>
+
       <p style={subtitle}>
         Marketplace Jual Beli Barang • {barang.length} item
       </p>
@@ -112,9 +124,20 @@ const container = {
   margin: "0 auto",
 };
 
-const title = {
-  textAlign: "center" as const,
-  fontSize: 36,
+const header = {
+  display: "flex",
+  alignItems: "center",
+  marginBottom: 16,
+};
+
+const logoWrap = {
+  display: "flex",
+  alignItems: "center",
+  gap: 10,
+};
+
+const brand = {
+  fontSize: 22,
   fontWeight: 700,
 };
 
