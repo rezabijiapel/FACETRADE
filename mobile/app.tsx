@@ -1,20 +1,16 @@
+import { Stack } from "expo-router";
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "./app/screens/Home";
-import Profile from "./app/screens/Profile";
-import AddItem from "./app/screens/AddItem";
 
-const Tab = createBottomTabNavigator();
-
-export default function App() {
+export default function RootLayout() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Add" component={AddItem} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Stack>
+      {/* Grup tabs */}
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+
+      {/* Halaman lain */}
+      <Stack.Screen name="login" options={{ headerShown: false }} />
+      <Stack.Screen name="add" options={{ headerShown: false }} />
+      <Stack.Screen name="profile" options={{ headerShown: false }} />
+    </Stack>
   );
 }

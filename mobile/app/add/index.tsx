@@ -34,17 +34,20 @@ export default function AddBarang() {
 
   const handleSubmit = async () => {
     try {
-      // contoh: kirim foto sebagai base64 atau multipart form-data
       await axios.post(API, {
         userId: 1, // sementara hardcode userId
         nama,
         kategori,
         kondisi,
         harga: Number(harga),
-        foto, // sementara kirim URI, backend perlu dukungan upload
+        foto,
       });
       Alert.alert("Berhasil", "Barang berhasil ditambahkan!");
-      setNama(""); setKategori(""); setKondisi(""); setHarga(""); setFoto(null);
+      setNama("");
+      setKategori("");
+      setKondisi("");
+      setHarga("");
+      setFoto(null);
     } catch (error) {
       console.error(error);
       Alert.alert("Error", "Gagal menambahkan barang");
@@ -80,16 +83,13 @@ export default function AddBarang() {
           keyboardType="numeric"
         />
 
-        {/* Upload Foto */}
         <TouchableOpacity style={styles.uploadButton} onPress={pickImage}>
           <Text style={styles.uploadText}>
             {foto ? "Ganti Foto" : "Pilih Foto"}
           </Text>
         </TouchableOpacity>
 
-        {foto && (
-          <Image source={{ uri: foto }} style={styles.preview} />
-        )}
+        {foto && <Image source={{ uri: foto }} style={styles.preview} />}
 
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
           <Text style={styles.submitText}>Tambah Barang</Text>
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   submitButton: {
-    backgroundColor: "#0077B6",
+    backgroundColor: "#00A8E8",
     padding: 15,
     borderRadius: 8,
     alignItems: "center",

@@ -1,9 +1,9 @@
 import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";      // ✅ gunakan index.tsx
-import LoginScreen from "../app/login"; // ✅ gunakan login.tsx
+import { createNativeStackNavigator } from "@react-navigation/native-stack";    
+import LoginScreen from "../app/login"; 
 import AddScreen from "../app/add/index";      
 import HomeScreen from "../app/(tabs)"; 
-import ProfileScreen from "@/app/profile";  // ✅ gunakan index.tsx
+import ProfileScreen from "@/app/profile";  
 
 const Stack = createNativeStackNavigator();
 
