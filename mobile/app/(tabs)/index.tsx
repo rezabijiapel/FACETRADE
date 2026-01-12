@@ -74,14 +74,14 @@ export default function HomeScreen() {
         contentContainerStyle={{ padding: 16, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
-         <ThemedText style={[styles.headerTitle, { color: "#1F2937" }]}>FaceTrade</ThemedText>
+         <ThemedText style={[styles.headerTitle, { color: "#00A8E8" }]}>FaceTrade</ThemedText>
         }
       />
 
       {/* Floating Add Button */}
       <Link href="/add" asChild>
         <TouchableOpacity style={styles.fab}>
-          <Ionicons name="add" size={32} color="#00A8E8" />
+          <Ionicons name="add" size={32} color="#030303" />
         </TouchableOpacity>
       </Link>
     </SafeAreaView>
@@ -89,7 +89,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#E9EBEE" },
+  container: { flex: 1, backgroundColor: "#acb5be" },
   loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
   headerTitle: { fontSize: 28, fontWeight: "800", marginBottom: 16 },
   card: {
@@ -125,5 +125,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
+    
   },
 });
