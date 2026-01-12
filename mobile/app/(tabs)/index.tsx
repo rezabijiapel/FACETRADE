@@ -81,7 +81,7 @@ export default function HomeScreen() {
       {/* Floating Add Button */}
       <Link href="/add" asChild>
         <TouchableOpacity style={styles.fab}>
-          <Ionicons name="add" size={32} color="#0f0d0d" />
+          <Ionicons name="add" size={32} color="#0e0c0c" />
         </TouchableOpacity>
       </Link>
     </SafeAreaView>
