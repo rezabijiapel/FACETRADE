@@ -16,7 +16,7 @@ export default function LoginScreen() {
 
     try {
       await AsyncStorage.setItem("user", JSON.stringify({ email }));
-      router.replace("/index"); // lowercase sesuai folder
+      router.replace("/profile");
     } catch (error) {
       console.error(error);
       Alert.alert("Error", "Gagal login");

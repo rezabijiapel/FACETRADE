@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  SafeAreaView,
   FlatList,
   View,
   StyleSheet,
@@ -7,13 +8,13 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import { API } from "@/config";
 import { ThemedText } from "@/components/themed-text";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
+// Interface Barang
 interface Barang {
   id: number;
   userId: number;
@@ -25,7 +26,7 @@ interface Barang {
   createdAt: string;
 }
 
-export default function HomeScreen() {
+export default function ProfileScreen() {
   const [barang, setBarang] = useState<Barang[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -53,8 +54,9 @@ export default function HomeScreen() {
           <ThemedText style={styles.noImageText}>Tidak ada foto</ThemedText>
         </View>
       )}
+
       <View style={styles.cardBody}>
-        <ThemedText type="title" style={styles.nama}>{item.nama}</ThemedText>
+        <ThemedText type="title" style={styles.nama}>{item.nama || "-"}</ThemedText>
         <ThemedText style={styles.meta}>
           {item.kategori} • {item.kondisi}
         </ThemedText>
@@ -71,7 +73,7 @@ export default function HomeScreen() {
         data={barang}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
-        contentContainerStyle={{ padding: 16, paddingBottom: 120 }}
+        contentContainerStyle={{ padding: 16, paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <ThemedText style={styles.headerTitle}>FaceTrade</ThemedText>
@@ -79,7 +81,7 @@ export default function HomeScreen() {
       />
 
       {/* Floating Add Button */}
-      <Link href="/add" asChild>
+      <Link href="./add" asChild>
         <TouchableOpacity style={styles.fab}>
           <Ionicons name="add" size={32} color="#fff" />
         </TouchableOpacity>
@@ -89,41 +91,76 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#E9EBEE" },
-  loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
-  headerTitle: { fontSize: 28, fontWeight: "800", marginBottom: 16 },
+  container: {
+    flex: 1,
+    backgroundColor: "#F3F4F6",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: "800",
+    marginBottom: 16,
+  },
   card: {
     backgroundColor: "#fff",
     borderRadius: 16,
-    marginBottom: 20,
+    marginBottom: 16,
     overflow: "hidden",
+    elevation: 4,
     shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 5 },
-    elevation: 5,
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
   },
-  foto: { width: "100%", height: 200 },
-  noImage: { height: 200, backgroundColor: "#d1d5db", justifyContent: "center", alignItems: "center" },
-  noImageText: { color: "#9CA3AF", fontSize: 16 },
-  cardBody: { padding: 12 },
-  nama: { fontSize: 18, fontWeight: "700", marginBottom: 4 },
-  meta: { color: "#6B7280", fontSize: 14 },
-  harga: { fontSize: 18, fontWeight: "700", color: "#00A8E8", marginTop: 6 },
+  foto: {
+    width: "100%",
+    height: 180,
+  },
+  noImage: {
+    height: 180,
+    backgroundColor: "#E5E7EB",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noImageText: {
+    color: "#9CA3AF",
+    fontSize: 16,
+  },
+  cardBody: {
+    padding: 12,
+  },
+  nama: {
+    fontSize: 18,
+    fontWeight: "700",
+    marginBottom: 4,
+  },
+  meta: {
+    color: "#6B7280",
+  },
+  harga: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#00A8E8",
+    marginTop: 6,
+  },
   fab: {
     position: "absolute",
-    bottom: 30,
-    right: 24,
+    bottom: 24,
+    right: 20,
     width: 60,
     height: 60,
     borderRadius: 30,
     backgroundColor: "#00A8E8",
     justifyContent: "center",
     alignItems: "center",
-    elevation: 8,
+    elevation: 6,
     shadowColor: "#000",
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: 6,
     shadowOffset: { width: 0, height: 4 },
   },
 });
