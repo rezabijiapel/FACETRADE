@@ -179,8 +179,8 @@ const headerStyles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    width: 40,
-    height: 40,
+    width: 100,
+    height: 100,
     marginRight: 10,
     resizeMode: "contain",
   },
