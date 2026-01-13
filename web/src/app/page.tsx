@@ -1,83 +1,232 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Link from "next/link";
 import Image from "next/image";
+import { api_barang } from "../lib/string";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+interface Barang {
+  id: number;
+  nama: string;
+  kategori: string;
+  kondisi: string;
+  harga: number;
+  foto?: string;
+}
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+export default function HomePage() {
+  const [barang, setBarang] = useState<Barang[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+  useEffect(() => {
+    axios
+      .get(api_barang)
+      .then((res) => setBarang(res.data))
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
-    const data = await res.json();
-    setMessage(data.message);
-  }
+  const filteredBarang = barang.filter((item) =>
+    item.nama.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (loading) return <p style={{ textAlign: "center" }}>Loading...</p>;
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-md p-8">
-        
-        {/* Logo + Brand */}
-        <div className="flex flex-col items-center mb-6">
+    <main style={container}>
+      {/* HEADER */}
+      <header style={header}>
+        <div style={logoWrap}>
           <Image
             src="/logo/logo.png"
-            alt="FaceTrade Logo"
-            width={70}
-            height={70}
-            className="mb-2"
+            alt="FACETRADE Logo"
+            width={40}
+            height={40}
           />
-          <h1 className="text-2xl font-extrabold text-blue-700 tracking-wide">
-            FACETRADE
-          </h1>
+          <span style={brand}>FACETRADE</span>
         </div>
+      </header>
 
-        {/* Title */}
-        <h2 className="text-lg font-semibold text-center mb-6 text-gray-700">
-          Login
-        </h2>
+      <p style={subtitle}>
+        Marketplace Jual Beli Barang • {barang.length} item
+      </p>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+      {/* Search */}
+      <input
+        type="text"
+        placeholder="Cari barang..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={searchBox}
+      />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+      {/* Grid */}
+      {filteredBarang.length === 0 ? (
+        <p style={{ textAlign: "center", color: "#6b7280" }}>
+          Barang tidak ditemukan
+        </p>
+      ) : (
+        <div style={grid}>
+          {filteredBarang.map((item) => (
+            <div
+              key={item.id}
+              style={card}
+              onMouseEnter={(e) =>
+                ((e.currentTarget as HTMLDivElement).style.transform =
+                  "translateY(-6px)")
+              }
+              onMouseLeave={(e) =>
+                ((e.currentTarget as HTMLDivElement).style.transform =
+                  "translateY(0)")
+              }
+            >
+              {item.foto ? (
+                <Image
+                  src={item.foto}
+                  alt={item.nama}
+                  width={400}
+                  height={220}
+                  style={image}
+                />
+              ) : (
+                <div style={noImage}>Tidak ada foto</div>
+              )}
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition font-semibold"
-          >
-            Login
-          </button>
-        </form>
+              <div style={{ padding: 12 }}>
+                <h3 style={nama}>{item.nama}</h3>
+                <p style={meta}>
+                  {item.kategori} • {item.kondisi}
+                </p>
+                <p style={harga}>
+                  Rp {item.harga.toLocaleString("id-ID")}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
-        {message && (
-          <p className="mt-4 text-center text-sm text-gray-600">
-            {message}
-          </p>
-        )}
-      </div>
+      {/* Floating Button */}
+      <Link href="/barang/add" style={fab}>
+        +
+      </Link>
     </main>
   );
 }
+
+/* ===== STYLE ===== */
+
+const container = {
+  padding: 24,
+  maxWidth: 1200,
+  margin: "0 auto",
+};
+
+const header = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  gap: 12,
+  padding: "16px 24px",
+  background: "#f3f4f6", // abu-abu terang
+  borderRadius: 12,
+  marginBottom: 24,
+  color: "#111",
+};
+
+const logoWrap = {
+  display: "flex",
+  alignItems: "center",
+  gap: 12,
+  filter: "drop-shadow(0 0 4px rgba(0,0,0,0.4))", // bayangan logo
+};
+
+const brand = {
+  fontSize: 24,
+  fontWeight: 700,
+  color: "#1E3A8A", // teks FACETRADE jadi biru
+};
+
+const subtitle = {
+  textAlign: "center" as const,
+  color: "#6b7280",
+  marginBottom: 16,
+};
+
+const searchBox = {
+  width: "100%",
+  maxWidth: 400,
+  margin: "0 auto 32px",
+  display: "block",
+  padding: "10px 14px",
+  borderRadius: 10,
+  border: "1px solid #d1d5db",
+  outline: "none",
+};
+
+const grid = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+  gap: 24,
+};
+
+const card = {
+  background: "#fff",
+  borderRadius: 16,
+  overflow: "hidden",
+  boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
+  transition: "transform 0.2s",
+  cursor: "pointer",
+};
+
+const image = {
+  objectFit: "cover" as const,
+  width: "100%",
+  height: "220px",
+};
+
+const noImage = {
+  height: 220,
+  background: "#e5e7eb",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  color: "#6b7280",
+};
+
+const nama = {
+  fontSize: 18,
+  fontWeight: 600,
+  marginBottom: 4,
+};
+
+const meta = {
+  fontSize: 14,
+  color: "#6b7280",
+  marginBottom: 8,
+};
+
+const harga = {
+  fontSize: 16,
+  fontWeight: 700,
+  color: "#00A8E8",
+};
+
+const fab = {
+  position: "fixed" as const,
+  bottom: 30,
+  right: 30,
+  width: 60,
+  height: 60,
+  borderRadius: "50%",
+  background: "#00A8E8",
+  color: "#fff",
+  fontSize: 36,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  textDecoration: "none",
+  boxShadow: "0 6px 16px rgba(0,0,0,0.25)",
+};
