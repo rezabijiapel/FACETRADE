@@ -26,13 +26,28 @@ interface Barang {
   createdAt: string;
 }
 
+// Interface User
+interface User {
+  id: number;
+  nama: string;
+  email: string;
+  foto?: string;
+}
+
 export default function ProfileScreen() {
   const [barang, setBarang] = useState<Barang[]>([]);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(API)
-      .then(res => setBarang(res.data))
+    Promise.all([
+      axios.get(API),           // ambil barang
+      axios.get("/api/user"),   // ambil data user
+    ])
+      .then(([barangRes, userRes]) => {
+        setBarang(barangRes.data);
+        setUser(userRes.data);
+      })
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
   }, []);
@@ -46,29 +61,50 @@ export default function ProfileScreen() {
   }
 
   const renderItem = ({ item }: { item: Barang }) => (
-    <View style={styles.card}>
-      {item.foto ? (
-        <Image source={{ uri: item.foto }} style={styles.foto} resizeMode="cover" />
-      ) : (
-        <View style={styles.noImage}>
-          <ThemedText style={styles.noImageText}>Tidak ada foto</ThemedText>
+    <Link href={`/barang/${item.id}`} asChild>
+      <TouchableOpacity style={styles.card}>
+        {item.foto ? (
+          <Image source={{ uri: item.foto }} style={styles.foto} resizeMode="cover" />
+        ) : (
+          <View style={styles.noImage}>
+            <ThemedText style={styles.noImageText}>Tidak ada foto</ThemedText>
+          </View>
+        )}
+        <View style={styles.cardBody}>
+          <ThemedText type="title" style={styles.nama}>{item.nama || "-"}</ThemedText>
+          <ThemedText style={styles.meta}>
+            {item.kategori} • {item.kondisi}
+          </ThemedText>
+          <ThemedText style={styles.harga}>
+            Rp {item.harga.toLocaleString("id-ID")}
+          </ThemedText>
         </View>
-      )}
-
-      <View style={styles.cardBody}>
-        <ThemedText type="title" style={styles.nama}>{item.nama || "-"}</ThemedText>
-        <ThemedText style={styles.meta}>
-          {item.kategori} • {item.kondisi}
-        </ThemedText>
-        <ThemedText style={styles.harga}>
-          Rp {item.harga.toLocaleString("id-ID")}
-        </ThemedText>
-      </View>
-    </View>
+      </TouchableOpacity>
+    </Link>
   );
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header Profil */}
+      <View style={styles.profileHeader}>
+        {user?.foto ? (
+          <Image source={{ uri: user.foto }} style={styles.profileImage} />
+        ) : (
+          <Ionicons name="person-circle-outline" size={80} color="#00A8E8" />
+        )}
+        <ThemedText type="title" style={styles.profileName}>{user?.nama}</ThemedText>
+        <ThemedText style={styles.profileEmail}>{user?.email}</ThemedText>
+
+        {/* Tombol Edit Profil */}
+        <Link href="/profile/edit" asChild>
+          <TouchableOpacity style={styles.editButton}>
+            <Ionicons name="create-outline" size={20} color="#fff" />
+            <ThemedText style={{ color: "#fff", marginLeft: 6 }}>Edit Profil</ThemedText>
+          </TouchableOpacity>
+        </Link>
+      </View>
+
+      {/* Daftar Barang User */}
       <FlatList
         data={barang}
         keyExtractor={(item) => item.id.toString()}
@@ -76,12 +112,12 @@ export default function ProfileScreen() {
         contentContainerStyle={{ padding: 16, paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
-          <ThemedText style={styles.headerTitle}>FaceTrade</ThemedText>
+          <ThemedText style={styles.headerTitle}>Barang Saya</ThemedText>
         }
       />
 
       {/* Floating Add Button */}
-      <Link href="./add" asChild>
+      <Link href="/add" asChild>
         <TouchableOpacity style={styles.fab}>
           <Ionicons name="add" size={32} color="#fff" />
         </TouchableOpacity>
@@ -91,20 +127,36 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F3F4F6",
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
+  container: { flex: 1, backgroundColor: "#F3F4F6" },
+  loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
+
+  // Header Profil
+  profileHeader: {
     alignItems: "center",
+    paddingVertical: 20,
+    backgroundColor: "#fff",
+    marginBottom: 12,
   },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: "800",
-    marginBottom: 16,
+  profileImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginBottom: 8,
   },
+  profileName: { fontSize: 20, fontWeight: "700", color: "#111" },
+  profileEmail: { fontSize: 14, color: "#6B7280", marginBottom: 8 },
+  editButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#00A8E8",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    marginTop: 8,
+  },
+
+  headerTitle: { fontSize: 22, fontWeight: "700", marginBottom: 12 },
+
   card: {
     backgroundColor: "#fff",
     borderRadius: 16,
@@ -116,37 +168,19 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 3 },
   },
-  foto: {
-    width: "100%",
-    height: 180,
-  },
+  foto: { width: "100%", height: 180 },
   noImage: {
     height: 180,
     backgroundColor: "#E5E7EB",
     justifyContent: "center",
     alignItems: "center",
   },
-  noImageText: {
-    color: "#9CA3AF",
-    fontSize: 16,
-  },
-  cardBody: {
-    padding: 12,
-  },
-  nama: {
-    fontSize: 18,
-    fontWeight: "700",
-    marginBottom: 4,
-  },
-  meta: {
-    color: "#6B7280",
-  },
-  harga: {
-    fontSize: 18,
-    fontWeight: "700",
-    color: "#00A8E8",
-    marginTop: 6,
-  },
+  noImageText: { color: "#9CA3AF", fontSize: 16 },
+  cardBody: { padding: 12 },
+  nama: { fontSize: 18, fontWeight: "700", marginBottom: 4 },
+  meta: { color: "#6B7280" },
+  harga: { fontSize: 18, fontWeight: "700", color: "#00A8E8", marginTop: 6 },
+
   fab: {
     position: "absolute",
     bottom: 24,

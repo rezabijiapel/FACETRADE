@@ -14,7 +14,7 @@ import { ThemedText } from "@/components/themed-text";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
-// Komponen Header dengan logo + teks
+// Komponen Header dengan logo + teks + search + profil/login
 const Header: React.FC<{ nama: string; isLoggedIn: boolean }> = ({ nama, isLoggedIn }) => {
   return (
     <View style={headerStyles.container}>
@@ -29,12 +29,19 @@ const Header: React.FC<{ nama: string; isLoggedIn: boolean }> = ({ nama, isLogge
         </ThemedText>
       </View>
 
-      {/* Kanan: Profil/Login */}
-      <Link href={isLoggedIn ? "/profile" : "/login"} asChild>
-        <TouchableOpacity style={headerStyles.profileIcon}>
-          <Ionicons name="person-circle-outline" size={36} color="#00A8E8" />
-        </TouchableOpacity>
-      </Link>
+      {/* Kanan: Search + Profil/Login */}
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <Link href="/explore" asChild>
+          <TouchableOpacity style={headerStyles.profileIcon}>
+            <Ionicons name="search" size={28} color="#00A8E8" />
+          </TouchableOpacity>
+        </Link>
+        <Link href={isLoggedIn ? "/profile" : "/login"} asChild>
+          <TouchableOpacity style={headerStyles.profileIcon}>
+            <Ionicons name="person-circle-outline" size={36} color="#00A8E8" />
+          </TouchableOpacity>
+        </Link>
+      </View>
     </View>
   );
 };
@@ -71,30 +78,24 @@ export default function HomeScreen() {
   }
 
   const renderItem = ({ item }: { item: Barang }) => (
-    <View style={styles.card}>
-      {item.foto ? (
-        <Image
-          source={{ uri: item.foto }}
-          style={styles.foto}
-          resizeMode="cover"
-        />
-      ) : (
-        <View style={styles.noImage}>
-          <ThemedText style={styles.noImageText}>Tidak ada foto</ThemedText>
+    <Link href={`/barang/${item.id}`} asChild>
+      <TouchableOpacity style={styles.card}>
+        {item.foto ? (
+          <Image source={{ uri: item.foto }} style={styles.foto} resizeMode="cover" />
+        ) : (
+          <View style={styles.noImage}>
+            <ThemedText style={styles.noImageText}>Tidak ada foto</ThemedText>
+          </View>
+        )}
+        <View style={styles.cardBody}>
+          <ThemedText type="title" style={styles.nama}>{item.nama}</ThemedText>
+          <ThemedText style={styles.meta}>{item.kategori} • {item.kondisi}</ThemedText>
+          <ThemedText style={styles.harga}>
+            Rp {item.harga.toLocaleString("id-ID")}
+          </ThemedText>
         </View>
-      )}
-      <View style={styles.cardBody}>
-        <ThemedText type="title" style={styles.nama}>
-          {item.nama}
-        </ThemedText>
-        <ThemedText style={styles.meta}>
-          {item.kategori} • {item.kondisi}
-        </ThemedText>
-        <ThemedText style={styles.harga}>
-          Rp {item.harga.toLocaleString("id-ID")}
-        </ThemedText>
-      </View>
-    </View>
+      </TouchableOpacity>
+    </Link>
   );
 
   return (
@@ -191,5 +192,6 @@ const headerStyles = StyleSheet.create({
   },
   profileIcon: {
     padding: 4,
+    marginLeft: 8,
   },
 });
