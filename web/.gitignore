@@ -51,10 +51,11 @@ next-env.d.ts
 android/app/build/
 ios/Pods/
 ios/build/
-*.xcworkspace
+*.xcworkspacegi
 *.xcodeproj
 *.pbxproj
 
 # IDE/editor
 .vscode/
 .idea/
+gitmind/
