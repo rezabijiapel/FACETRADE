@@ -36,7 +36,8 @@ export default function HomePage() {
 
   return (
     <main style={container}>
-      {/* HEADER */}
+
+      {/* ================= HEADER (PALING ATAS) ================= */}
       <header style={header}>
         <div style={logoWrap}>
           <Image
@@ -49,11 +50,50 @@ export default function HomePage() {
         </div>
       </header>
 
+      {/* ================= FITUR ================= */}
+      <section style={fiturGrid}>
+        <div style={fiturCard}>🔁 Barter Mudah</div>
+        <div style={fiturCard}>📦 Barang Layak Pakai</div>
+        <div style={fiturCard}>🤝 Transparan</div>
+      </section>
+
+      {/* ================= PREVIEW BARANG ================= */}
+      <section style={{ marginBottom: 48 }}>
+        <div style={previewHeader}>
+          <h2 style={{ fontSize: 20, fontWeight: 700 }}>Barang Terbaru</h2>
+          <Link href="/barang" style={{ color: "#2563eb", fontSize: 14 }}>
+            Lihat Semua →
+          </Link>
+        </div>
+
+        <div style={previewGrid}>
+          {barang.slice(0, 4).map((item) => (
+            <div key={item.id} style={previewCard}>
+              {item.foto ? (
+                <Image
+                  src={item.foto}
+                  alt={item.nama}
+                  width={300}
+                  height={160}
+                  style={{ objectFit: "cover", borderRadius: 8 }}
+                />
+              ) : (
+                <div style={noImage}>Tidak ada foto</div>
+              )}
+              <p style={{ fontWeight: 600, marginTop: 8 }}>{item.nama}</p>
+              <p style={{ fontSize: 12, color: "#6b7280" }}>
+                {item.kondisi}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ================= SEARCH ================= */}
       <p style={subtitle}>
         Marketplace Jual Beli Barang • {barang.length} item
       </p>
 
-      {/* Search */}
       <input
         type="text"
         placeholder="Cari barang..."
@@ -62,7 +102,7 @@ export default function HomePage() {
         style={searchBox}
       />
 
-      {/* Grid */}
+      {/* ================= GRID BARANG ================= */}
       {filteredBarang.length === 0 ? (
         <p style={{ textAlign: "center", color: "#6b7280" }}>
           Barang tidak ditemukan
@@ -70,18 +110,7 @@ export default function HomePage() {
       ) : (
         <div style={grid}>
           {filteredBarang.map((item) => (
-            <div
-              key={item.id}
-              style={card}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLDivElement).style.transform =
-                  "translateY(-6px)")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLDivElement).style.transform =
-                  "translateY(0)")
-              }
-            >
+            <div key={item.id} style={card}>
               {item.foto ? (
                 <Image
                   src={item.foto}
@@ -108,15 +137,95 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Floating Button */}
+      {/* ================= CTA ================= */}
+      <section style={cta}>
+        <h2 style={{ fontSize: 24, fontWeight: 700 }}>
+          Siap Menukar Barang?
+        </h2>
+        <Link href="/barang/add">
+          <button style={ctaBtn}>Mulai Barter</button>
+        </Link>
+      </section>
+
+      {/* ================= FLOATING BUTTON ================= */}
       <Link href="/barang/add" style={fab}>
         +
       </Link>
+
     </main>
   );
 }
 
-/* ===== STYLE ===== */
+/* ===== STYLE TAMBAHAN ===== */
+
+const hero = {
+  textAlign: "center" as const,
+  marginBottom: 48,
+};
+
+const heroTitle = {
+  fontSize: 40,
+  fontWeight: 800,
+};
+
+const heroDesc = {
+  maxWidth: 600,
+  margin: "12px auto",
+  color: "#6b7280",
+};
+
+const fiturGrid = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
+  gap: 16,
+  marginBottom: 48,
+};
+
+const fiturCard = {
+  border: "1px solid #e5e7eb",
+  padding: 20,
+  borderRadius: 12,
+  textAlign: "center" as const,
+};
+
+const previewHeader = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: 16,
+};
+
+const previewGrid = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fill,minmax(160px,1fr))",
+  gap: 16,
+};
+
+const previewCard = {
+  border: "1px solid #e5e7eb",
+  borderRadius: 12,
+  padding: 10,
+};
+
+const cta = {
+  marginTop: 64,
+  padding: 40,
+  background: "#f3f4f6",
+  textAlign: "center" as const,
+  borderRadius: 16,
+};
+
+const ctaBtn = {
+  marginTop: 16,
+  padding: "12px 24px",
+  background: "#2563eb",
+  color: "#fff",
+  border: "none",
+  borderRadius: 10,
+  cursor: "pointer",
+};
+
+/* ===== STYLE ASLI ===== */
 
 const container = {
   padding: 24,
@@ -127,26 +236,23 @@ const container = {
 const header = {
   display: "flex",
   alignItems: "center",
-  justifyContent: "flex-start",
   gap: 12,
   padding: "16px 24px",
-  background: "#f3f4f6", // abu-abu terang
+  background: "#f3f4f6",
   borderRadius: 12,
-  marginBottom: 24,
-  color: "#111",
+  marginBottom: 32,
 };
 
 const logoWrap = {
   display: "flex",
   alignItems: "center",
   gap: 12,
-  filter: "drop-shadow(0 0 4px rgba(0,0,0,0.4))", // bayangan logo
 };
 
 const brand = {
   fontSize: 24,
   fontWeight: 700,
-  color: "#1E3A8A", // teks FACETRADE jadi biru
+  color: "#1E3A8A",
 };
 
 const subtitle = {
@@ -163,7 +269,6 @@ const searchBox = {
   padding: "10px 14px",
   borderRadius: 10,
   border: "1px solid #d1d5db",
-  outline: "none",
 };
 
 const grid = {
@@ -177,8 +282,6 @@ const card = {
   borderRadius: 16,
   overflow: "hidden",
   boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
-  transition: "transform 0.2s",
-  cursor: "pointer",
 };
 
 const image = {
@@ -188,24 +291,21 @@ const image = {
 };
 
 const noImage = {
-  height: 220,
+  height: 160,
   background: "#e5e7eb",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "#6b7280",
 };
 
 const nama = {
   fontSize: 18,
   fontWeight: 600,
-  marginBottom: 4,
 };
 
 const meta = {
   fontSize: 14,
   color: "#6b7280",
-  marginBottom: 8,
 };
 
 const harga = {
@@ -228,5 +328,4 @@ const fab = {
   alignItems: "center",
   justifyContent: "center",
   textDecoration: "none",
-  boxShadow: "0 6px 16px rgba(0,0,0,0.25)",
 };
