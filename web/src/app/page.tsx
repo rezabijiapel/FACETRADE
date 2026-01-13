@@ -52,9 +52,16 @@ export default function HomePage() {
 
       {/* ================= FITUR ================= */}
       <section style={fiturGrid}>
-        <div style={fiturCard}>🔁 Barter Mudah</div>
-        <div style={fiturCard}>📦 Barang Layak Pakai</div>
-        <div style={fiturCard}>🤝 Transparan</div>
+        {/* <div style={fiturCard}>🔁 Barter Mudah</div> */}
+         <Link href="Barter">
+          <button style={ctaBtn}>🔁 Barter Mudah</button>
+        </Link>
+        <Link href="baranglayakpakai/page.tsx">
+          <button style={ctaBtn}>📦 Barang Layak Pakai</button>
+        </Link>
+        <Link href="transparan/page.tsx">
+          <button style={ctaBtn}>🤝 Transparan</button>
+        </Link>
       </section>
 
       {/* ================= PREVIEW BARANG ================= */}
