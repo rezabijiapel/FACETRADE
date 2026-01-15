@@ -86,10 +86,9 @@ export default function HomeScreen() {
     </Link>
   );
 
-  const PromoBanner = () => (
-    <View style={styles.promoBanner}>
-      <Ionicons name="sparkles-outline" size={24} color="#fff" />
-      <ThemedText style={styles.promoText}>
+  const PromoTextOnly = () => (
+    <View style={{ marginTop: 40, paddingHorizontal: 16 }}>
+      <ThemedText style={styles.promoTextOnly}>
         Baru! Sekarang kamu bisa tukar barang langsung lewat chat.
       </ThemedText>
     </View>
@@ -104,7 +103,7 @@ export default function HomeScreen() {
         contentContainerStyle={{ padding: 16, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={<Header nama="FaceTrade" isLoggedIn={false} />}
-        ListEmptyComponent={<PromoBanner />}
+        ListEmptyComponent={<PromoTextOnly />}
       />
 
       <Link href="/add" asChild>
@@ -158,16 +157,11 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
   },
-  promoBanner: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#00A8E8",
-    padding: 16,
-    borderRadius: 12,
-    marginTop: 40,
-    justifyContent: "center",
+  promoTextOnly: {
+    fontSize: 14,
+    color: "#00A8E8",
+    textAlign: "center",
   },
-  promoText: { color: "#fff", fontSize: 14, marginLeft: 8, textAlign: "center" },
 });
 
 const headerStyles = StyleSheet.create({
