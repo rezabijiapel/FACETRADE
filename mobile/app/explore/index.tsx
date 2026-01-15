@@ -2,25 +2,24 @@
 import { useState } from "react";
 import axios from "axios";
 
-const kategoriList = ["Semua", "Elektronik", "Pakaian", "Makanan", "Buku"];
-
 export default function SearchBarang() {
   const [query, setQuery] = useState("");
-  const [kategori, setKategori] = useState("Semua");
   const [results, setResults] = useState<any[]>([]);
   const [history, setHistory] = useState<string[]>([]);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
 
-    const res = await axios.get(`/api/barang?search=${query}&kategori=${kategori}`);
+    const res = await axios.get(`/api/barang?search=${query}`);
     setResults(res.data);
 
     setHistory((prev) => {
       const updated = [query, ...prev.filter((item) => item !== query)];
-      return updated.slice(0, 5); // simpan 5 pencarian terakhir
+      return updated.slice(0, 5);
     });
   };
+
+  const showSuggestion = results.length === 0 && query.trim().length > 0;
 
   return (
     <main
@@ -59,7 +58,7 @@ export default function SearchBarang() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Masukkan nama barang..."
             style={{
-              width: "60%",
+              width: "75%",
               padding: "12px 16px",
               borderRadius: "8px",
               border: "1px solid #ccc",
@@ -67,23 +66,6 @@ export default function SearchBarang() {
               backgroundColor: "#fff",
             }}
           />
-          <select
-            value={kategori}
-            onChange={(e) => setKategori(e.target.value)}
-            style={{
-              padding: "12px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              fontSize: "16px",
-              backgroundColor: "#fff",
-            }}
-          >
-            {kategoriList.map((kat) => (
-              <option key={kat} value={kat}>
-                {kat}
-              </option>
-            ))}
-          </select>
           <button
             onClick={handleSearch}
             style={{
@@ -114,7 +96,7 @@ export default function SearchBarang() {
         <div>
           {results.length === 0 ? (
             <p style={{ color: "#666", textAlign: "center" }}>
-              Barang Tidak Ada... {query && `Mungkin maksud Anda: "${query}"`}
+              {showSuggestion ? `Mungkin maksud Anda: "${query}"` : "Barang Tidak Ada..."}
             </p>
           ) : (
             results.map((item) => (
