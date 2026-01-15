@@ -87,7 +87,7 @@ export default function HomeScreen() {
   );
 
   const PromoTextOnly = () => (
-    <View style={{ marginTop: 40, paddingHorizontal: 16 }}>
+    <View style={styles.promoWrapper}>
       <ThemedText style={styles.promoTextOnly}>
         Baru! Sekarang kamu bisa tukar barang langsung lewat chat.
       </ThemedText>
@@ -100,7 +100,7 @@ export default function HomeScreen() {
         data={barang}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
-        contentContainerStyle={{ padding: 16, paddingBottom: 120 }}
+        contentContainerStyle={{ padding: 16, paddingBottom: 120, flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={<Header nama="FaceTrade" isLoggedIn={false} />}
         ListEmptyComponent={<PromoTextOnly />}
@@ -156,6 +156,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
+  },
+  promoWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 16,
   },
   promoTextOnly: {
     fontSize: 14,
