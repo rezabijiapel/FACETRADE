@@ -14,37 +14,26 @@ import { ThemedText } from "@/components/themed-text";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
-// Komponen Header dengan logo + teks + search + profil/login
-const Header: React.FC<{ nama: string; isLoggedIn: boolean }> = ({ nama, isLoggedIn }) => {
-  return (
-    <View style={headerStyles.container}>
-      {/* Kiri: Logo + Nama */}
-      <View style={headerStyles.left}>
-        <Image
-          source={require("../../assets/images/logo.png")}
-          style={headerStyles.logo}
-        />
-        <ThemedText type="title" style={headerStyles.text}>
-          {nama}
-        </ThemedText>
-      </View>
-
-      {/* Kanan: Search + Profil/Login */}
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Link href="/explore" asChild>
-          <TouchableOpacity style={headerStyles.profileIcon}>
-            <Ionicons name="search" size={28} color="#00A8E8" />
-          </TouchableOpacity>
-        </Link>
-        <Link href={isLoggedIn ? "/profile" : "/login"} asChild>
-          <TouchableOpacity style={headerStyles.profileIcon}>
-            <Ionicons name="person-circle-outline" size={36} color="#00A8E8" />
-          </TouchableOpacity>
-        </Link>
-      </View>
+const Header: React.FC<{ nama: string; isLoggedIn: boolean }> = ({ nama, isLoggedIn }) => (
+  <View style={headerStyles.container}>
+    <View style={headerStyles.left}>
+      <Image source={require("../../assets/images/logo.png")} style={headerStyles.logo} />
+      <ThemedText type="title" style={headerStyles.text}>{nama}</ThemedText>
     </View>
-  );
-};
+    <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <Link href="/explore" asChild>
+        <TouchableOpacity style={headerStyles.profileIcon}>
+          <Ionicons name="search" size={28} color="#00A8E8" />
+        </TouchableOpacity>
+      </Link>
+      <Link href={isLoggedIn ? "/profile" : "/login"} asChild>
+        <TouchableOpacity style={headerStyles.profileIcon}>
+          <Ionicons name="person-circle-outline" size={36} color="#00A8E8" />
+        </TouchableOpacity>
+      </Link>
+    </View>
+  </View>
+);
 
 interface Barang {
   id: number;
@@ -62,8 +51,7 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(API)
+    axios.get(API)
       .then((res) => setBarang(res.data))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
@@ -98,6 +86,15 @@ export default function HomeScreen() {
     </Link>
   );
 
+  const PromoBanner = () => (
+    <View style={styles.promoBanner}>
+      <Ionicons name="sparkles-outline" size={24} color="#fff" />
+      <ThemedText style={styles.promoText}>
+        Baru! Sekarang kamu bisa tukar barang langsung lewat chat.
+      </ThemedText>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -107,9 +104,9 @@ export default function HomeScreen() {
         contentContainerStyle={{ padding: 16, paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={<Header nama="FaceTrade" isLoggedIn={false} />}
+        ListEmptyComponent={<PromoBanner />}
       />
 
-      {/* Floating Add Button */}
       <Link href="/add" asChild>
         <TouchableOpacity style={styles.fab}>
           <Ionicons name="add" size={32} color="#030303" />
@@ -144,12 +141,7 @@ const styles = StyleSheet.create({
   cardBody: { padding: 12 },
   nama: { fontSize: 18, fontWeight: "700", marginBottom: 4 },
   meta: { color: "#6B7280", fontSize: 14 },
-  harga: {
-    fontSize: 18,
-    fontWeight: "700",
-    color: "#00A8E8",
-    marginTop: 6,
-  },
+  harga: { fontSize: 18, fontWeight: "700", color: "#00A8E8", marginTop: 6 },
   fab: {
     position: "absolute",
     bottom: 30,
@@ -166,32 +158,27 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 4 },
   },
+  promoBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#00A8E8",
+    padding: 16,
+    borderRadius: 12,
+    marginTop: 40,
+    justifyContent: "center",
+  },
+  promoText: { color: "#fff", fontSize: 14, marginLeft: 8, textAlign: "center" },
 });
 
 const headerStyles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between", // logo di kiri, ikon di kanan
+    justifyContent: "space-between",
     marginBottom: 16,
   },
-  left: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  logo: {
-    width: 100,
-    height: 100,
-    marginRight: 10,
-    resizeMode: "contain",
-  },
-  text: {
-    fontSize: 28,
-    fontWeight: "800",
-    color: "#00A8E8",
-  },
-  profileIcon: {
-    padding: 4,
-    marginLeft: 8,
-  },
+  left: { flexDirection: "row", alignItems: "center" },
+  logo: { width: 100, height: 100, marginRight: 10, resizeMode: "contain" },
+  text: { fontSize: 28, fontWeight: "800", color: "#00A8E8" },
+  profileIcon: { padding: 4, marginLeft: 8 },
 });
