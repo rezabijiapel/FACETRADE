@@ -89,7 +89,7 @@ export default function HomeScreen() {
   const PromoTextOnly = () => (
     <View style={styles.promoWrapper}>
       <ThemedText style={styles.promoTextOnly}>
-        Baru! Sekarang kamu bisa tukar barang langsung lewat chat.
+        Sekarang! kamu bisa tukar barang langsung lewat chat.
       </ThemedText>
     </View>
   );
