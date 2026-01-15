@@ -17,8 +17,8 @@ export default function SearchBarang() {
         padding: "32px",
         fontFamily: "Arial, sans-serif",
         backgroundColor: "#d6eaf8", // latar biru muda
-        minHeight: "100vh", // tinggi penuh layar
-        width: "100%", // lebar penuh layar
+        minHeight: "100vh",
+        width: "100%",
         boxSizing: "border-box",
       }}
     >
@@ -31,7 +31,7 @@ export default function SearchBarang() {
         <h2
           style={{
             marginBottom: "24px",
-            color: "#0099ff", // warna teks biru cerah seperti logo
+            color: "#0099ff", // warna teks Facetrade
             textAlign: "center",
             fontSize: "28px",
             fontWeight: "bold",
@@ -65,7 +65,7 @@ export default function SearchBarang() {
             onClick={handleSearch}
             style={{
               padding: "12px 20px",
-              backgroundColor: "#007bff",
+              backgroundColor: "#0099ff", // warna tombol Cari diubah
               color: "#fff",
               border: "none",
               borderRadius: "8px",
