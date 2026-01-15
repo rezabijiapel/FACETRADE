@@ -21,7 +21,7 @@ export default function SearchBarang() {
       }}
     >
       <h2 style={{ marginBottom: "24px", color: "#333", textAlign: "center" }}>
-        Cari Barang
+        Facetrade
       </h2>
 
       <div
