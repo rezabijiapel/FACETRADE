@@ -15,7 +15,7 @@ export default function SearchBarang() {
     <main
       style={{
         padding: "32px",
-        maxWidth: "700px",
+        maxWidth: "800px",
         margin: "0 auto",
         fontFamily: "Arial, sans-serif",
       }}
@@ -37,7 +37,7 @@ export default function SearchBarang() {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Masukkan nama barang..."
           style={{
-            width: "70%",
+            width: "75%",
             padding: "12px 16px",
             borderRadius: "8px",
             border: "1px solid #ccc",
