@@ -15,24 +15,31 @@ export default function SearchBarang() {
     <main
       style={{
         padding: "32px",
-        maxWidth: "600px",
+        maxWidth: "700px",
         margin: "0 auto",
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <h2 style={{ marginBottom: "16px", color: "#333", textAlign: "center" }}>
+      <h2 style={{ marginBottom: "24px", color: "#333", textAlign: "center" }}>
         Cari Barang
       </h2>
 
-      <div style={{ display: "flex", gap: "8px", marginBottom: "24px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "12px",
+          marginBottom: "32px",
+        }}
+      >
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Masukkan nama barang..."
           style={{
-            flex: 1,
-            padding: "10px 12px",
-            borderRadius: "6px",
+            width: "70%",
+            padding: "12px 16px",
+            borderRadius: "8px",
             border: "1px solid #ccc",
             fontSize: "16px",
           }}
@@ -40,11 +47,12 @@ export default function SearchBarang() {
         <button
           onClick={handleSearch}
           style={{
-            padding: "10px 16px",
+            padding: "12px 20px",
             backgroundColor: "#007bff",
             color: "#fff",
             border: "none",
-            borderRadius: "6px",
+            borderRadius: "8px",
+            fontSize: "16px",
             cursor: "pointer",
           }}
         >
@@ -65,7 +73,7 @@ export default function SearchBarang() {
                 border: "1px solid #ddd",
                 borderRadius: "8px",
                 padding: "16px",
-                marginBottom: "12px",
+                marginBottom: "16px",
                 backgroundColor: "#f9f9f9",
               }}
             >
