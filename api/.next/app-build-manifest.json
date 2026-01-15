@@ -1,19 +1,19 @@
 {
   "pages": {
-    "/api/barang/route": [
+    "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/barang/route.js"
+      "static/chunks/app/layout.js"
     ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
-    "/layout": [
+    "/api/barang/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/layout.js"
+      "static/chunks/app/api/barang/route.js"
     ]
   }
 }
