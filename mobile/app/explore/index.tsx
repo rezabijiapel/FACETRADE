@@ -20,7 +20,9 @@ export default function SearchBarang() {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <h2 style={{ marginBottom: "16px", color: "#333" }}>Cari Barang</h2>
+      <h2 style={{ marginBottom: "16px", color: "#333", textAlign: "center" }}>
+        Cari Barang
+      </h2>
 
       <div style={{ display: "flex", gap: "8px", marginBottom: "24px" }}>
         <input
@@ -52,7 +54,9 @@ export default function SearchBarang() {
 
       <div>
         {results.length === 0 ? (
-          <p style={{ color: "#666" }}>Tidak ada hasil ditemukan.</p>
+          <p style={{ color: "#666", textAlign: "center" }}>
+            Tidak ada hasil ditemukan.
+          </p>
         ) : (
           results.map((item) => (
             <div
