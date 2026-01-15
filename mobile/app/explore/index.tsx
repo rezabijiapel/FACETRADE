@@ -80,7 +80,7 @@ export default function SearchBarang() {
         <div>
           {results.length === 0 ? (
             <p style={{ color: "#666", textAlign: "center" }}>
-              Barang Tidak Ada!
+              Barang Tidak Ada...
             </p>
           ) : (
             results.map((item) => (
