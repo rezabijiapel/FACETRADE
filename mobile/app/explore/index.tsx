@@ -16,7 +16,7 @@ export default function SearchBarang() {
       style={{
         padding: "32px",
         fontFamily: "Arial, sans-serif",
-        backgroundColor: "#d6eaf8", // warna biru muda
+        backgroundColor: "#d6eaf8", // latar biru muda
         minHeight: "100vh", // tinggi penuh layar
         width: "100%", // lebar penuh layar
         boxSizing: "border-box",
@@ -31,7 +31,7 @@ export default function SearchBarang() {
         <h2
           style={{
             marginBottom: "24px",
-            color: "#333",
+            color: "#0099ff", // warna teks biru cerah seperti logo
             textAlign: "center",
             fontSize: "28px",
             fontWeight: "bold",
