@@ -15,73 +15,93 @@ export default function SearchBarang() {
     <main
       style={{
         padding: "32px",
-        maxWidth: "800px",
-        margin: "0 auto",
         fontFamily: "Arial, sans-serif",
+        backgroundColor: "#d6eaf8", // warna biru muda
+        minHeight: "100vh", // tinggi penuh layar
+        width: "100%", // lebar penuh layar
+        boxSizing: "border-box",
       }}
     >
-      <h2 style={{ marginBottom: "24px", color: "#333", textAlign: "center" }}>
-        Facetrade
-      </h2>
-
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "12px",
-          marginBottom: "32px",
+          maxWidth: "800px",
+          margin: "0 auto",
         }}
       >
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Masukkan nama barang..."
+        <h2
           style={{
-            width: "75%",
-            padding: "12px 16px",
-            borderRadius: "8px",
-            border: "1px solid #ccc",
-            fontSize: "16px",
-          }}
-        />
-        <button
-          onClick={handleSearch}
-          style={{
-            padding: "12px 20px",
-            backgroundColor: "#007bff",
-            color: "#fff",
-            border: "none",
-            borderRadius: "8px",
-            fontSize: "16px",
-            cursor: "pointer",
+            marginBottom: "24px",
+            color: "#333",
+            textAlign: "center",
+            fontSize: "28px",
+            fontWeight: "bold",
           }}
         >
-          Cari
-        </button>
-      </div>
+          Facetrade
+        </h2>
 
-      <div>
-        {results.length === 0 ? (
-          <p style={{ color: "#666", textAlign: "center" }}>
-            Tidak ada hasil ditemukan.
-          </p>
-        ) : (
-          results.map((item) => (
-            <div
-              key={item.id}
-              style={{
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-                padding: "16px",
-                marginBottom: "16px",
-                backgroundColor: "#f9f9f9",
-              }}
-            >
-              <h3 style={{ margin: "0 0 8px", color: "#222" }}>{item.nama}</h3>
-              <p style={{ margin: 0, color: "#555" }}>Rp {item.harga}</p>
-            </div>
-          ))
-        )}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "12px",
+            marginBottom: "32px",
+          }}
+        >
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Masukkan nama barang..."
+            style={{
+              width: "75%",
+              padding: "12px 16px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              fontSize: "16px",
+              backgroundColor: "#fff",
+            }}
+          />
+          <button
+            onClick={handleSearch}
+            style={{
+              padding: "12px 20px",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              border: "none",
+              borderRadius: "8px",
+              fontSize: "16px",
+              cursor: "pointer",
+            }}
+          >
+            Cari
+          </button>
+        </div>
+
+        <div>
+          {results.length === 0 ? (
+            <p style={{ color: "#666", textAlign: "center" }}>
+              Tidak ada hasil ditemukan.
+            </p>
+          ) : (
+            results.map((item) => (
+              <div
+                key={item.id}
+                style={{
+                  border: "1px solid #ddd",
+                  borderRadius: "8px",
+                  padding: "16px",
+                  marginBottom: "16px",
+                  backgroundColor: "#f9f9f9",
+                }}
+              >
+                <h3 style={{ margin: "0 0 8px", color: "#222" }}>
+                  {item.nama}
+                </h3>
+                <p style={{ margin: 0, color: "#555" }}>Rp {item.harga}</p>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </main>
   );
