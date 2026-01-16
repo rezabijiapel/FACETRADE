@@ -36,36 +36,38 @@ export default function HomePage() {
 
   return (
     <main style={container}>
-
-      {/* ================= HEADER (PALING ATAS) ================= */}
+      {/* ================= HEADER ================= */}
       <header style={header}>
         <div style={logoWrap}>
-          <Image
-            src="/logo/logo.png"
-            alt="FACETRADE Logo"
-            width={40}
-            height={40}
-          />
+          <Image src="/logo/logo.png" alt="FACETRADE Logo" width={40} height={40} />
           <span style={brand}>FACETRADE</span>
         </div>
       </header>
 
       {/* ================= FITUR ================= */}
-      <section style={fiturGrid}>
-        {/* <div style={fiturCard}>🔁 Barter Mudah</div> */}
-         <Link href="Barter">
-          <button style={ctaBtn}>🔁 Barter Mudah</button>
-        </Link>
-        <Link href="baranglayakpakai/page.tsx">
-          <button style={ctaBtn}>📦 Barang Layak Pakai</button>
-        </Link>
-        <Link href="transparan/page.tsx">
-          <button style={ctaBtn}>🤝 Transparan</button>
-        </Link>
+      <section style={fiturWrap}>
+        <div style={fiturGrid}>
+          <Link href="/barter">
+            <button style={ctaBtn}>🔁 Barter Mudah</button>
+          </Link>
+          <Link href="/baranglayakpakai">
+            <button style={ctaBtn}>📦 Barang Layak Pakai</button>
+          </Link>
+          <Link href="/transparan">
+            <button style={ctaBtn}>🤝 Transparan</button>
+          </Link>
+        </div>
       </section>
 
       {/* ================= PREVIEW BARANG ================= */}
       <section style={{ marginBottom: 48 }}>
+        <div style={previewHeader}>
+          <h2 style={{ fontSize: 20, fontWeight: 700 }}>Barang Terbaru</h2>
+          <Link href="/barang" style={{ color: "#2563eb", fontSize: 14 }}>
+            Lihat Semua →
+          </Link>
+        </div>
+
         <div style={previewGrid}>
           {barang.slice(0, 4).map((item) => (
             <div key={item.id} style={previewCard}>
@@ -81,9 +83,7 @@ export default function HomePage() {
                 <div style={noImage}>Tidak ada foto</div>
               )}
               <p style={{ fontWeight: 600, marginTop: 8 }}>{item.nama}</p>
-              <p style={{ fontSize: 12, color: "#6b7280" }}>
-                {item.kondisi}
-              </p>
+              <p style={{ fontSize: 12, color: "#6b7280" }}>{item.kondisi}</p>
             </div>
           ))}
         </div>
@@ -122,7 +122,6 @@ export default function HomePage() {
               ) : (
                 <div style={noImage}>Tidak ada foto</div>
               )}
-
               <div style={{ padding: 12 }}>
                 <h3 style={nama}>{item.nama}</h3>
                 <p style={meta}>
@@ -139,98 +138,25 @@ export default function HomePage() {
 
       {/* ================= CTA ================= */}
       <section style={cta}>
-        <h2 style={{ fontSize: 24, fontWeight: 700 }}>
-          Siap Menukar Barang?
-        </h2>
+        <h2 style={{ fontSize: 24, fontWeight: 700 }}>Siap Menukar Barang?</h2>
         <Link href="/barang/add">
           <button style={ctaBtn}>Mulai Barter</button>
         </Link>
       </section>
 
       {/* ================= FLOATING BUTTON ================= */}
-      <Link href="/barang/add" style={fab}>
-        +
-      </Link>
-
+      <Link href="/barang/add" style={fab}>+</Link>
     </main>
   );
 }
 
-/* ===== STYLE TAMBAHAN ===== */
-
-const hero = {
-  textAlign: "center" as const,
-  marginBottom: 48,
-};
-
-const heroTitle = {
-  fontSize: 40,
-  fontWeight: 800,
-};
-
-const heroDesc = {
-  maxWidth: 600,
-  margin: "12px auto",
-  color: "#6b7280",
-};
-
-const fiturGrid = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
-  gap: 16,
-  marginBottom: 48,
-};
-
-const fiturCard = {
-  border: "1px solid #e5e7eb",
-  padding: 20,
-  borderRadius: 12,
-  textAlign: "center" as const,
-};
-
-const previewHeader = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  marginBottom: 16,
-};
-
-const previewGrid = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fill,minmax(160px,1fr))",
-  gap: 16,
-};
-
-const previewCard = {
-  border: "1px solid #e5e7eb",
-  borderRadius: 12,
-  padding: 10,
-};
-
-const cta = {
-  marginTop: 64,
-  padding: 40,
-  background: "#f3f4f6",
-  textAlign: "center" as const,
-  borderRadius: 16,
-};
-
-const ctaBtn = {
-  marginTop: 16,
-  padding: "12px 24px",
-  background: "#2563eb",
-  color: "#fff",
-  border: "none",
-  borderRadius: 10,
-  cursor: "pointer",
-};
-
-/* ===== STYLE ASLI ===== */
+/* ===== STYLE ===== */
 
 const container = {
   padding: 24,
   maxWidth: 1200,
   margin: "0 auto",
+  paddingBottom: 100,
 };
 
 const header = {
@@ -255,6 +181,47 @@ const brand = {
   color: "#1E3A8A",
 };
 
+const fiturWrap = {
+  display: "flex",
+  justifyContent: "center",
+  marginBottom: 48,
+};
+
+const fiturGrid = {
+  display: "grid",
+  gridTemplateColumns: "repeat(3, minmax(160px, 1fr))",
+  gap: 16,
+};
+
+const ctaBtn = {
+  padding: "12px 24px",
+  background: "#2563eb",
+  color: "#fff",
+  border: "none",
+  borderRadius: 10,
+  cursor: "pointer",
+};
+
+const previewHeader = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: 16,
+};
+
+const previewGrid = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fill,minmax(160px,1fr))",
+  gap: 16,
+  justifyItems: "center",
+};
+
+const previewCard = {
+  border: "1px solid #e5e7eb",
+  borderRadius: 12,
+  padding: 10,
+};
+
 const subtitle = {
   textAlign: "center" as const,
   color: "#6b7280",
@@ -275,6 +242,7 @@ const grid = {
   display: "grid",
   gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
   gap: 24,
+  justifyItems: "center",
 };
 
 const card = {
@@ -314,6 +282,14 @@ const harga = {
   color: "#00A8E8",
 };
 
+const cta = {
+  marginTop: 64,
+  padding: 40,
+  background: "#f3f4f6",
+  textAlign: "center" as const,
+  borderRadius: 16,
+};
+
 const fab = {
   position: "fixed" as const,
   bottom: 30,
@@ -328,4 +304,6 @@ const fab = {
   alignItems: "center",
   justifyContent: "center",
   textDecoration: "none",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+  zIndex: 1000,
 };
