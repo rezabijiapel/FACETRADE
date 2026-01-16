@@ -66,10 +66,6 @@ export default function HomePage() {
 
       {/* ================= PREVIEW BARANG ================= */}
       <section style={{ marginBottom: 48 }}>
-        <div style={previewHeader}>
-          <h2 style={{ fontSize: 20, fontWeight: 700 }}>Barang Terbaru</h2>
-        </div>
-
         <div style={previewGrid}>
           {barang.slice(0, 4).map((item) => (
             <div key={item.id} style={previewCard}>
