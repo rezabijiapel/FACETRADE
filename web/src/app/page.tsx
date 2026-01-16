@@ -68,9 +68,6 @@ export default function HomePage() {
       <section style={{ marginBottom: 48 }}>
         <div style={previewHeader}>
           <h2 style={{ fontSize: 20, fontWeight: 700 }}>Barang Terbaru</h2>
-          <Link href="/barang" style={{ color: "#2563eb", fontSize: 14 }}>
-            Lihat Semua →
-          </Link>
         </div>
 
         <div style={previewGrid}>
