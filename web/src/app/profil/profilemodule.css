@@ -1,0 +1,32 @@
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.avatar {
+    margin-bottom: 20px;
+}
+
+.image {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.details {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #0070f3;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}

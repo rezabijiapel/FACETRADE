@@ -1,11 +1,26 @@
-// web/src/app/profil/page.tsx
-export default function ProfilPage() {
-  return (
-    <div className="p-6">
-      <h2 className="text-2xl font-semibold mb-4">Profil Saya</h2>
-      <p>Nama: Pengguna Contoh</p>
-      <p>Email: pengguna@example.com</p>
-      {/* Tambahkan detail lain sesuai kebutuhan */}
-    </div>
-  );
-}
+import React from 'react';
+import { useRouter } from 'next/router';
+import styles from './profil.module.css'; // File CSS untuk styling jika diperlukan
+
+const Profil = () => {
+    const router = useRouter();
+
+    return (
+        <div className={styles.container}>
+            <h1>Profil Pengguna</h1>
+            <div className={styles.avatar}>
+                <img src="/path/to/avatar.jpg" alt="Avatar" className={styles.image} />
+            </div>
+            <div className={styles.details}>
+                <h2>Nama: John Doe</h2>
+                <p>Email: johndoe@example.com</p>
+                <p>Nomor Telepon: +62 812 3456 7890</p>
+                <button onClick={() => router.push('/edit-profil')} className={styles.button}>
+                    Edit Profil
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default Profil;

@@ -1,1 +1,0 @@
-globalThis.__RSC_MANIFEST=(globalThis.__RSC_MANIFEST||{});globalThis.__RSC_MANIFEST["/api/barang/route"]={"moduleLoading":{"prefix":"/_next/"},"ssrModuleMapping":{},"edgeSSRModuleMapping":{},"clientModules":{},"entryCSSFiles":{"D:\\clone 1\\FACETRADE\\api\\":[],"D:\\clone 1\\FACETRADE\\api\\app\\api\\barang\\route":[]},"rscModuleMapping":{},"edgeRscModuleMapping":{}}
