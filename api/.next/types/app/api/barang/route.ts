@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 // File: D:\clone\FACETRADE\api\app\api\barang\route.ts
-=======
-// File: D:\Kelompok P. Web\FACETRADE\api\app\api\barang\route.ts
->>>>>>> ca8e7484ed8f894af25b8ef5b2620757510c6b5d
 import * as entry from '../../../../../app/api/barang/route.js'
 import type { NextRequest } from 'next/server.js'
 
