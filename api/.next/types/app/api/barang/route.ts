@@ -1,4 +1,4 @@
-// File: D:\Kelompok Mobile\FACETRADE\api\app\api\barang\route.ts
+// File: D:\clone\FACETRADE\api\app\api\barang\route.ts
 import * as entry from '../../../../../app/api/barang/route.js'
 import type { NextRequest } from 'next/server.js'
 
