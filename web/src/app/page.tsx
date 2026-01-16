@@ -44,7 +44,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* ================= FITUR ================= */}
+      {/* ================= FITUR (RATA TENGAH) ================= */}
       <section style={fiturWrap}>
         <div style={fiturGrid}>
           <Link href="/barter">
@@ -181,6 +181,7 @@ const brand = {
   color: "#1E3A8A",
 };
 
+/* ——— Fitur: rata tengah & lebar tombol konsisten ——— */
 const fiturWrap = {
   display: "flex",
   justifyContent: "center",
@@ -188,18 +189,22 @@ const fiturWrap = {
 };
 
 const fiturGrid = {
-  display: "grid",
-  gridTemplateColumns: "repeat(3, minmax(160px, 1fr))",
+  display: "flex",
   gap: 16,
+  flexWrap: "wrap",
+  justifyContent: "center",
+  alignItems: "center",
 };
 
 const ctaBtn = {
+  width: 200,
   padding: "12px 24px",
   background: "#2563eb",
   color: "#fff",
   border: "none",
   borderRadius: 10,
   cursor: "pointer",
+  textAlign: "center" as const,
 };
 
 const previewHeader = {
