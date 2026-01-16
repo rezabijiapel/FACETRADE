@@ -129,10 +129,19 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 5 },
     elevation: 5,
   },
-  foto: { width: "100%", height: 200 },
+  foto: {
+  width: "100%",
+  aspectRatio: 1, // ✅ bikin gambar selalu kotak
+  borderTopLeftRadius: 16,
+  borderTopRightRadius: 16,
+  backgroundColor: "#f0f0f0",
+},
   noImage: {
-    height: 200,
-    backgroundColor: "#d1d5db",
+    width: "100%",
+    aspectRatio: 1,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    backgroundColor: "#f0f0f0",
     justifyContent: "center",
     alignItems: "center",
   },

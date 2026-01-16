@@ -3,16 +3,10 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-// GET: Ambil semua barang atau filter berdasarkan query
+// GET: Ambil semua barang
 export async function GET(request: Request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const search = searchParams.get("search");
-
     const data = await prisma.tb_barang.findMany({
-      where: search
-        ? { nama: { contains: search, mode: "insensitive" } }
-        : {},
       select: {
         id: true,
         userId: true,
@@ -23,9 +17,10 @@ export async function GET(request: Request) {
         foto: true,
         createdAt: true,
       },
-      orderBy: { createdAt: "desc" },
+      orderBy: {
+        createdAt: 'desc'
+      }
     });
-
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
