@@ -14,7 +14,6 @@ import { ThemedText } from "@/components/themed-text";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
-// Interface Barang
 interface Barang {
   id: number;
   userId: number;
@@ -26,7 +25,6 @@ interface Barang {
   createdAt: string;
 }
 
-// Interface User
 interface User {
   id: number;
   nama: string;
@@ -41,8 +39,8 @@ export default function ProfileScreen() {
 
   useEffect(() => {
     Promise.all([
-      axios.get(API),           // ambil barang
-      axios.get("/api/user"),   // ambil data user
+      axios.get(API),
+      axios.get("/api/user"),
     ])
       .then(([barangRes, userRes]) => {
         setBarang(barangRes.data);
@@ -87,13 +85,27 @@ export default function ProfileScreen() {
     <SafeAreaView style={styles.container}>
       {/* Header Profil */}
       <View style={styles.profileHeader}>
-        {user?.foto ? (
-          <Image source={{ uri: user.foto }} style={styles.profileImage} />
-        ) : (
-          <Ionicons name="person-circle-outline" size={80} color="#00A8E8" />
-        )}
-        <ThemedText type="title" style={styles.profileName}>{user?.nama}</ThemedText>
-        <ThemedText style={styles.profileEmail}>{user?.email}</ThemedText>
+        <View style={styles.profileTop}>
+          {user?.foto ? (
+            <Image source={{ uri: user.foto }} style={styles.profileImage} />
+          ) : (
+            <Ionicons name="person-circle-outline" size={90} color="#fff" />
+          )}
+          <ThemedText type="title" style={styles.profileName}>{user?.nama}</ThemedText>
+          <ThemedText style={styles.profileEmail}>{user?.email}</ThemedText>
+        </View>
+
+        {/* Statistik */}
+        <View style={styles.statsRow}>
+          <View style={styles.statBox}>
+            <ThemedText style={styles.statNumber}>{barang.length}</ThemedText>
+            <ThemedText style={styles.statLabel}>Barang</ThemedText>
+          </View>
+          <View style={styles.statBox}>
+            <ThemedText style={styles.statNumber}>Rp {barang.reduce((a,b)=>a+b.harga,0).toLocaleString("id-ID")}</ThemedText>
+            <ThemedText style={styles.statLabel}>Total Harga</ThemedText>
+          </View>
+        </View>
 
         {/* Tombol Edit Profil */}
         <Link href="/profile/edit" asChild>
@@ -130,27 +142,38 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#F3F4F6" },
   loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
 
-  // Header Profil
   profileHeader: {
+    backgroundColor: "#00A8E8",
+    paddingVertical: 30,
+    paddingHorizontal: 16,
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
     alignItems: "center",
-    paddingVertical: 20,
-    backgroundColor: "#fff",
-    marginBottom: 12,
+    marginBottom: 16,
   },
+  profileTop: { alignItems: "center" },
   profileImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    borderWidth: 3,
+    borderColor: "#fff",
     marginBottom: 8,
   },
-  profileName: { fontSize: 20, fontWeight: "700", color: "#111" },
-  profileEmail: { fontSize: 14, color: "#6B7280", marginBottom: 8 },
+  profileName: { fontSize: 22, fontWeight: "700", color: "#fff" },
+  profileEmail: { fontSize: 14, color: "#e0f7fa", marginBottom: 12 },
+
+  statsRow: { flexDirection: "row", justifyContent: "space-around", width: "100%", marginBottom: 12 },
+  statBox: { alignItems: "center" },
+  statNumber: { fontSize: 18, fontWeight: "700", color: "#fff" },
+  statLabel: { fontSize: 12, color: "#e0f7fa" },
+
   editButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#00A8E8",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    backgroundColor: "#0077b6",
+    paddingHorizontal: 14,
+    paddingVertical: 8,
     borderRadius: 20,
     marginTop: 8,
   },
