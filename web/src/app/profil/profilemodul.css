@@ -1,0 +1,20 @@
+.profil-container {
+    position: fixed;  /* Agar tetap di tempat saat scroll */
+    top: 20px;        /* Jarak dari atas */
+    right: 20px;      /* Jarak dari kanan */
+    width: 80px;      /* Lebar kontainer */
+    height: 80px;     /* Tinggi kontainer */
+    border-radius: 50%; /* Membuat kontainer bulat */
+    overflow: hidden;  /* Menghilangkan bagian gambar yang keluar */
+    background-color: #f9f9f9;  /* Warna latar belakang */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);  /* Bayangan */
+    display: flex;    /* Untuk mengatur posisi gambar di tengah */
+    justify-content: center; /* Memusatkan gambar */
+    align-items: center;   /* Memusatkan gambar */
+}
+
+.profil-image {
+    width: 100%;    /* Menyesuaikan lebar gambar dengan kontainer */
+    height: auto;   /* Tinggi otomatis */
+    border-radius: 50%; /* Membuat gambar bulat */
+}

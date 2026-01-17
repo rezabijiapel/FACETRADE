@@ -42,6 +42,9 @@ export default function HomePage() {
           <Image src="/logo/logo.png" alt="FACETRADE Logo" width={40} height={40} />
           <span style={brand}>FACETRADE</span>
         </div>
+        <Link href="/profil">
+                    <button>Profil</button> {/* Tambahkan tautan ke profil */}
+                </Link>
       </header>
 
       {/* ================= FITUR (RATA TENGAH) ================= */}

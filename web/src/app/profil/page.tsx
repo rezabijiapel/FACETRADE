@@ -1,6 +1,8 @@
+'use client';
+
 import React from 'react';
-import { useRouter } from 'next/router';
-import styles from './profil.module.css'; // File CSS untuk styling jika diperlukan
+import { useRouter } from 'next/navigation'; 
+import styles from './profilemodul.css';
 
 const Profil = () => {
     const router = useRouter();
@@ -8,8 +10,8 @@ const Profil = () => {
     return (
         <div className={styles.container}>
             <h1>Profil Pengguna</h1>
-            <div className={styles.avatar}>
-                <img src="/path/to/avatar.jpg" alt="Avatar" className={styles.image} />
+            <div className="profil-container">
+            <img src="path/to/your-avatar.jpg" alt="User avatar for John Doe profile" className="profil-image" />
             </div>
             <div className={styles.details}>
                 <h2>Nama: John Doe</h2>
